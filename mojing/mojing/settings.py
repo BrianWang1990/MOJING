@@ -25,7 +25,7 @@ SECRET_KEY = 'r%vqm6l9^zrs5_gla3e7rqggp8g^p7a)%*v#y=xde%fe1+0bo+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.25.38"]
+ALLOWED_HOSTS = ["192.168.25.38","127.0.0.1"]
 
 
 # Application definition
@@ -107,6 +107,8 @@ from django.contrib import admin
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'zh-hans'
+
+LANG="en_US.UTF-8"
 
 TIME_ZONE = 'Asia/Shanghai'
 
