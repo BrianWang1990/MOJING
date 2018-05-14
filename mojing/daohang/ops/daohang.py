@@ -1,5 +1,6 @@
 import json
 import urllib
+import datetime
 from urllib.parse import quote #quote 为了解决url中英文混排的问题
 from mojing.settings import baidu_key,home_coordinate, office_coordinate,caofang_subway_coordinate,guomao_subway_coordinate
 
@@ -14,18 +15,18 @@ def get_total_time():
 
     jingping_car_time,caofang_car_time,guomao_car_time='0','0','0'
 
-    if jingping_result and jingping_result.get("status",'0')=="0":#开车到三元桥时间
-        jingping_car_time=jingping_result.get("result",{}).get("routes",[])[0].get("duration",'0') if jingping_result.get("result",{}).get("routes",[]).length>0 else '0'
+    if jingping_result and str(jingping_result.get("status",''))=="0":#开车到三元桥时间
+        jingping_car_time=jingping_result.get("result",{}).get("routes",[])[0].get("duration",'0') if jingping_result.get("result",{}).get("routes",[]) else '0'
 
 
-    if caofang_result and caofang_result.get("status",'0')=="0":#开车到草房地铁时间
-        caofang_car_time=caofang_result.get("result",{}).get("routes",[])[0].get("duration",'0') if caofang_result.get("result",{}).get("routes",[]).length>0 else '0'
+    if caofang_result and str(caofang_result.get("status",''))=="0":#开车到草房地铁时间
+        caofang_car_time=caofang_result.get("result",{}).get("routes",[])[0].get("duration",'0') if caofang_result.get("result",{}).get("routes",[]) else '0'
 
 
-    if guomao_result and guomao_result.get("status",'0')=="0":#开车到国贸地铁时间
-        guomao_car_time=guomao_result.get("result",{}).get("routes",[])[0].get("duration",'0') if guomao_result.get("result",{}).get("routes",[]).length>0 else '0'
+    if guomao_result and str(guomao_result.get("status",''))=="0":#开车到国贸地铁时间
+        guomao_car_time=guomao_result.get("result",{}).get("routes",[])[0].get("duration",'0') if guomao_result.get("result",{}).get("routes",[]) else '0'
 
-    print('--------------%s-------------------%s--------------------%s'%(jingping_car_time,caofang_car_time,guomao_car_time))
+
 
     jingping_total_time=float(jingping_car_time)+15*60 #走京平高速从家到办公室的总时间
 
@@ -41,7 +42,9 @@ def get_total_time():
 
     guomao_time = [convert_time(guomao_car_time), convert_time(guomao_total_time)]#格式化显示时间为 xx小时xx分xx秒
 
-    return {"jingping_time":jingping_time,"caofang_time":caofang_time,"guomao_time":guomao_time}
+    now_datestring=datetime.datetime.now().strftime("%Y-%m-%d %H:%I:%S")
+
+    return {"jingping_time":jingping_time,"caofang_time":caofang_time,"guomao_time":guomao_time,"ttime":now_datestring}
 
 
 #通过经纬度起点、终点查找路线，默认经过京平高速
