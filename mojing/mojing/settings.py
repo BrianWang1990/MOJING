@@ -127,3 +127,5 @@ STATIC_URL = '/static/'
 TEMPLATES_DIRS = (os.path.join(BASE_DIR,'templates'))
 
 gaode_key='bf183b6e13f2f94eb7372c7f7bf148e5'
+
+weather_key='d21b0bb4ac4fabe4'
